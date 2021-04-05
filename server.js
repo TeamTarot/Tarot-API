@@ -5,6 +5,8 @@ const express = require('express');
 const cors = require('cors');
 // const superagent = require('superagent');
 
+const Data = require('./data/data');
+
 const app = express();
 const PORT = process.env.PORT || 3002;
 const DATABASE = process.env.DATABASE_URL;
@@ -23,8 +25,12 @@ app.use(cors());
 
 app.use(express.json());
 
-
 // routes and functions
+app.get('/reading', Data.getAReadings);
+app.get('/draw', Data.handleAPICall);
+app.post('/reading', Data.createAReading);
+app.delete('/reading/:id', Data.deleteAReading);
+app.put('/reading/:id', Data.updateAReading);
 
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
