@@ -14,7 +14,7 @@ const superagent = require('superagent');
 
 Data.getAReadings = async(req, res) => {
 
-} 
+}
 
 Data.handleAPICall = async(req, res) => {
   const url = `https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=3`;
@@ -37,7 +37,9 @@ Data.createAReading = async(req, res) => {
 }
 
 Data.deleteAReading = async(req, res) => {
-  
+  const id = req.params.id;
+  await User.deleteOne({_id:id});
+  res.status(200).send('successfully deleted!');
 }
 
 Data.updateAReading = async(req, res) => {
