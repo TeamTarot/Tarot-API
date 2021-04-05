@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes and functions
-app.get('/reading', Data.getAReadings);
+app.get('/user', Data.getUser);
 app.get('/draw', Data.handleAPICall);
 app.post('/reading', Data.createAReading);
 app.delete('/reading/:id', Data.deleteAReading);

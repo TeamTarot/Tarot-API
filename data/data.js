@@ -3,17 +3,23 @@
 const User = require('../models/User');
 
 const Data = {};
+require('dotenv').config();
 
 const superagent = require('superagent');
 
-// app.get('/reading', Data.getAReadings);
+// app.get('/user', Data.getUser);
 // app.get('/draw', Data.handleAPICall);
 // app.post('/reading', Data.createAReading);
 // app.delete('/reading/:id', Data.deleteAReading);
 // app.put('/reading/:id', Data.updateAReading);
 
-Data.getAReadings = async(req, res) => {
-
+Data.getUser = async(req, res) => {
+ const email = req.query.email;
+ await User.find({ email }, function (err, user) {
+    if (err) return console.error(err);
+    console.log('user infos: ', user);
+    res.status(200).send(user[0]);
+  });
 }
 
 Data.handleAPICall = async(req, res) => {
