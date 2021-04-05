@@ -1,0 +1,26 @@
+{
+  "name": "tarot-api",
+  "version": "1.0.0",
+  "description": "Tarot App & Tarot API 1. Summary of idea.     1. a deck app where you are able to draw 3 cards and journal about them. you can CRUD all up in here 2. What problem or pain point does it solve? a. Keep it high level without going into too much detail. (3-4 sentences is enough)     1. 1 application to do readings and house all your thoughts in one place     2. saves paper and physical space, saves trees      3. aesthetically pleasing 3. Minimum Viable Product (MVP) definition.     * What is the minimum required for you to present on your demo day?         * Create Account         * draw 3 cards, journal about them         * save, update, delete your draws         * views: login page, drawing of the 3 cards - journal text area popup, profile",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamTarot/Tarot-API.git"
+  },
+  "author": "jake mason audrey julien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TeamTarot/Tarot-API/issues"
+  },
+  "homepage": "https://github.com/TeamTarot/Tarot-API#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3",
+    "superagent": "^6.1.0"
+  }
+}
