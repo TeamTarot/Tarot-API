@@ -23,7 +23,7 @@ Data.getUser = async(req, res) => {
 }
 
 Data.handleAPICall = async(req, res) => {
-  const url = `https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=3`;
+  const url = "https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=3";
   superagent
   .get(url)
   .then(function (superagentResults) {

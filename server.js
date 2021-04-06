@@ -5,7 +5,8 @@ const express = require('express');
 const cors = require('cors');
 // const superagent = require('superagent');
 
-const Data = require('./data/data');
+const Data = require('./data/data.js');
+
 
 const app = express();
 const PORT = process.env.PORT || 3002;
