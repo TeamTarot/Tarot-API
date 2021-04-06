@@ -2,9 +2,9 @@
 
 const mongoose = require('mongoose');
 const readingSchema = new mongoose.Schema({
-    name: {type: String, required: true},
-    description: {type: String, required: true},
-    status: {type: String, required: true}
+    date: {type: String, required: true},
+    cardSet: [{type: Object}],
+    Journal: {type: String},
 });
 
 const ReadingCard = mongoose.model('Reading', readingSchema);
