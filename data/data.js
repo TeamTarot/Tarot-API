@@ -17,6 +17,9 @@ Data.getUser = async(req, res) => {
  const email = req.query.email;
  await User.find({ email }, function (err, user) {
     if (err) return console.error(err);
+    // if the user doesn't have an email
+    // make them a profile with everything blank except the email
+    // save the user to the database
     console.log('user infos: ', user);
     res.status(200).send(user[0]);
   });
@@ -52,7 +55,7 @@ Data.handleAPICall = async(req, res) => {
 
 Data.createAReading = async(req, res) => {
   const email = req.body.email;
-  const reading = { 
+  const reading = {
     // make sure this matches in the front end
     cardSet: request.body.card.cardSet, 
     date: request.body.card.date, 
