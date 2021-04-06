@@ -64,9 +64,9 @@ Data.createAReading = async (req, res) => {
   const email = req.body.email;
   const reading = {
     // make sure this matches in the front end
-    cardSet: request.body.card.cardSet,
-    date: request.body.card.date,
-    journal: request.body.card.journal
+    cardSet: req.body.cards.cardSet,
+    date: req.body.cards.date,
+    journal: req.body.cards.journal
   };
   User.findOne({ email }, (err, entry) => {
     if (err) return console.error(err);
@@ -74,7 +74,7 @@ Data.createAReading = async (req, res) => {
     entry.save();
     // console.log('new push', entry.books);
     // we are sending back something, 
-    response.status(200).send(entry.cards);
+    res.status(200).send(entry.cards);
   });
 }
 
