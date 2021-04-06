@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const cardSchema = new mongoose.Schema({
+const readingsSchema = new mongoose.Schema({
   cardSet: [],
   date: {type: String},
   journal: {type: String},
@@ -11,7 +11,7 @@ const cardSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   email: {type: String, required: true},
   // the 3 card draw
-  cards: [cardSchema]
+  cards: [readingsSchema]
 });
 
 const User = mongoose.model('User', userSchema);
