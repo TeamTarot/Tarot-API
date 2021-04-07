@@ -29,7 +29,7 @@ app.use(express.json());
 app.get('/user', Data.getUser);
 app.get('/draw', Data.handleAPICall);
 app.post('/reading', Data.createAReading);
-app.delete('/reading/:id', Data.deleteAReading);
+app.delete('/reading/:index', Data.deleteAReading);
 app.put('/reading/:index', Data.updateAReading);
 
 

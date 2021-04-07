@@ -80,9 +80,8 @@ Data.createAReading = async (req, res) => {
 }
 
 Data.deleteAReading = async (req, res) => {
-  const index = req.params.index;
+  const index = +req.params.index;
   const email = req.query.email;
-  const entry = req.body.entry;
   
   await User.findOne({email}, (err, entry) => {
     // await User.deleteOne({ _id: id }, () => console.log('successfully deleted', id));
