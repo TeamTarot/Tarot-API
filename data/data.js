@@ -15,20 +15,24 @@ const superagent = require('superagent');
 
 Data.getUser = async (req, res) => {
   const email = req.query.email;
-  await User.find({ email }, function (err, user) {
+   User.find({ email }, function (err, user) {
     if (err) { return console.error(err) }
     // if the user doesn't have an email
-    if (!user) {
+    console.log(user[0])
+     if (!user[0]) {
       const welcome = new User({
         email: req.query.email,
         cards: []
       });
-      welcome.save(() => console.log('welcome', {welcome}));
+      welcome.save(() => console.log('welcome', {welcome}))
+      res.status(200).send(welcome);
+    }else{
+
+          res.status(200).send(user[0]);
     }
     // make them a profile with everything blank except the email
     // save the user to the database
-    console.log('user infos: ', user);
-    res.status(200).send(user[0]);
+
   });
 }
 
@@ -62,19 +66,16 @@ Data.handleAPICall = async (req, res) => {
 
 Data.createAReading = async (req, res) => {
   const email = req.body.email;
-  const reading = {
-    // make sure this matches in the front end
-    cardSet: req.body.cards.cardSet,
-    date: req.body.cards.date,
-    journal: req.body.cards.journal
-  };
-  User.findOne({ email }, (err, entry) => {
+  const reading = req.body.reading;
+  console.log("finding: ", req.params, req.query, req.body)
+  User.find({ email: email }, (err, entry) => {
     if (err) return console.error(err);
-    entry.cards.push(reading);
-    entry.save();
+    console.log("creating and entry:", entry[0])
+    entry[0].cards = reading
+    entry[0].save();
     // console.log('new push', entry.books);
     // we are sending back something, 
-    res.status(200).send(entry.cards);
+    res.status(200).send(entry[0]);
   });
 }
 
@@ -87,7 +88,7 @@ Data.deleteAReading = async (req, res) => {
 Data.updateAReading = async (req, res) => {
   const id = req.params.id;
   const data = req.body.journalUpdate;
-  User.findByIdAndUpdate({ _id: id }, data, { new: true, useFindAndModify: false });
+  await User.findByIdAndUpdate({ _id: id }, data, { new: true, useFindAndModify: false });
 }
 
 module.exports = Data;
