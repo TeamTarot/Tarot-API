@@ -6,6 +6,7 @@ const Data = {};
 require('dotenv').config();
 
 const superagent = require('superagent');
+const { response } = require('express');
 
 // app.get('/user', Data.getUser);
 // app.get('/draw', Data.handleAPICall);
@@ -32,7 +33,6 @@ Data.getUser = async (req, res) => {
     }
     // make them a profile with everything blank except the email
     // save the user to the database
-
   });
 }
 
@@ -80,15 +80,33 @@ Data.createAReading = async (req, res) => {
 }
 
 Data.deleteAReading = async (req, res) => {
-  const id = req.params.id;
-  await User.deleteOne({ _id: id });
-  res.status(200).send('successfully deleted!');
+  const index = +req.params.index;
+  const email = req.query.email;
+  
+  await User.findOne({email}, (err, entry) => {
+    // await User.deleteOne({ _id: id }, () => console.log('successfully deleted', id));
+    const newArray = entry.cards.filter((card, i) => {
+      return i !== index;
+    })
+    entry.cards = newArray;
+    entry.save();
+    res.status(200).send('successfully deleted!');
+  })
+
 }
 
+
 Data.updateAReading = async (req, res) => {
-  const id = req.params.id;
-  const data = req.body.journalUpdate;
-  await User.findByIdAndUpdate({ _id: id }, data, { new: true, useFindAndModify: false });
+  const index = req.params.index;
+  const email = req.body.email;
+
+  const entry = req.body.entry;
+
+  await User.findOne({email}, (err, data) => {
+    data.cards.splice(+index, 1, entry);
+    data.save();
+    res.status(200).send(data.cards);
+  })
 }
 
 module.exports = Data;
