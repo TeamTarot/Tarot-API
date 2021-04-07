@@ -30,7 +30,7 @@ app.get('/user', Data.getUser);
 app.get('/draw', Data.handleAPICall);
 app.post('/reading', Data.createAReading);
 app.delete('/reading/:id', Data.deleteAReading);
-app.put('/reading/:id', Data.updateAReading);
+app.put('/reading/:index', Data.updateAReading);
 
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
