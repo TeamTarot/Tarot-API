@@ -6,6 +6,7 @@ const Data = {};
 require('dotenv').config();
 
 const superagent = require('superagent');
+const { response } = require('express');
 
 // app.get('/user', Data.getUser);
 // app.get('/draw', Data.handleAPICall);
@@ -85,9 +86,17 @@ Data.deleteAReading = async (req, res) => {
 }
 
 Data.updateAReading = async (req, res) => {
-  const id = req.params.id;
-  const data = req.body.journalUpdate;
-  User.findByIdAndUpdate({ _id: id }, data, { new: true, useFindAndModify: false });
+  const index = req.params.index;
+  const email = req.body.email;
+
+  const entry = req.body.entry;
+
+  User.findOne({ email }, (err, x) => {
+    x.user.splice(parseInt(index), 1, entry);
+    x.save();
+    console.log('updated user', x.user);
+    response.status(200)._destroy(x.user);
+  });
 }
 
 module.exports = Data;
