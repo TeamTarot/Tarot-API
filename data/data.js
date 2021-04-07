@@ -71,7 +71,8 @@ Data.createAReading = async (req, res) => {
   User.find({ email: email }, (err, entry) => {
     if (err) return console.error(err);
     console.log("creating and entry:", entry[0])
-    entry[0].cards = reading
+    const yay = [...entry[0].cards, reading];
+    entry[0].cards = yay;
     entry[0].save();
     // console.log('new push', entry.books);
     // we are sending back something, 
