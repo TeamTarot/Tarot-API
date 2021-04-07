@@ -18,17 +18,17 @@ Data.getUser = async (req, res) => {
   await User.find({ email }, function (err, user) {
     if (err) { return console.error(err) }
     // if the user doesn't have an email
-    if (!user) {
-      const welcome = new User({
-        email: req.query.email,
-        cards: []
-      });
-      welcome.save(() => console.log('welcome', {welcome}));
-    }
+    // if (!user) {
+    //   const welcome = new User({
+    //     email: req.query.email,
+    //     cards: []
+    //   });
+    //   welcome.save(() => console.log('welcome', { welcome }));
+    // }
     // make them a profile with everything blank except the email
     // save the user to the database
-    console.log('user infos: ', user);
-    res.status(200).send(user[0]);
+    console.log('user infos: ', user[user.length-1]);
+    res.status(200).send(user[user.length-1]);
   });
 }
 
@@ -80,9 +80,19 @@ Data.createAReading = async (req, res) => {
 
 Data.deleteAReading = async (req, res) => {
   const id = req.params.id;
-  await User.deleteOne({ _id: id });
+  const email = req.query.email;
+  await User.findOne({email}, (err, entry) => {
+    // await User.deleteOne({ _id: id }, () => console.log('successfully deleted', id));
+    const newArray = entry.cards.filter((card) => {
+      return id !== card._id;
+    })
+    entry.cards = newArray;
+    entry.save();
+  })
   res.status(200).send('successfully deleted!');
+
 }
+
 
 Data.updateAReading = async (req, res) => {
   const id = req.params.id;
