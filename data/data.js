@@ -80,17 +80,19 @@ Data.createAReading = async (req, res) => {
 }
 
 Data.deleteAReading = async (req, res) => {
-  const id = req.params.id;
+  const index = req.params.index;
   const email = req.query.email;
+  const entry = req.body.entry;
+  
   await User.findOne({email}, (err, entry) => {
     // await User.deleteOne({ _id: id }, () => console.log('successfully deleted', id));
-    const newArray = entry.cards.filter((card) => {
-      return id !== card._id;
+    const newArray = entry.cards.filter((card, i) => {
+      return i !== index;
     })
     entry.cards = newArray;
     entry.save();
+    res.status(200).send('successfully deleted!');
   })
-  res.status(200).send('successfully deleted!');
 
 }
 
