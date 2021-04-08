@@ -91,7 +91,7 @@ Data.deleteAReading = async (req, res) => {
     })
     entry.cards = newArray;
     entry.save();
-    res.status(200).send('successfully deleted!');
+    res.status(200).send(entry);
   })
 
 }
