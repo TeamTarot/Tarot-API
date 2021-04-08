@@ -16,4 +16,14 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+// User.find = ((err, user) => {
+//   if (err) return console.error(err);
+//   console.log(user);
+// });
+
+User.find(function (err, user) {
+  if (err) return console.error(err);
+  console.log(user);
+});
+
 module.exports = User;
